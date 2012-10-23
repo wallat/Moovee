@@ -1,5 +1,6 @@
 20121023
-- add link to Walla Group
+- add link to WallaGroup
+- fix typo
 
 20121020
 - move source code onto github

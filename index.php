@@ -15,7 +15,7 @@ else
 <title>Moovee -- A simple movie scheduler</title>
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="description" content="很陽春的排片單系統" />
-<meta name="keywords" content="排片單, 金馬, 金馬影展, 台北電影節, Taipei Golden Horse Film Festival, Taipei Film Festival, Movie Time Schduler" />
+<meta name="keywords" content="排片單, 金馬, 金馬影展, 台北電影節, Taipei Golden Horse Film Festival, Taipei Film Festival, Movie Time Scheduler" />
 <!-- iPhone test -->
 <link rel="apple-touch-icon" href="icon/moovee.png" />
 <meta name="viewport" content = "width = device-width, initial-scale = 1, user-scalable = no" />
@@ -72,7 +72,7 @@ else
 <div id="festList" style="border:1px solid #FF6666; padding:5px; margin:10px 0; font-size:200%;">
 <h1>Which film festival?</h1>
 <ul>
-<li><a href="http://moovee.wallagroup.com">Moovee @ Walla Group</a> (New)</li>
+<li><a href="http://moovee.wallagroup.com">Moovee @ WallaGroup</a> (New)</li>
 <li><a href="tiff2011">2011 台北電影節 / Taipei Film Festival 2011</a></li>
 <li><a href="gh2011f">2011 金馬奇幻影展 / Golden Horse 2011 (Fantastic)</a></li>
 <li><a href="gh2010">2010 金馬影展 / Golden Horse 2010</a></li>
