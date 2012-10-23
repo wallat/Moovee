@@ -1,3 +1,6 @@
+20121023
+- add link to Walla Group
+
 20121020
 - move source code onto github
 - distribute under Apache License 2.0
