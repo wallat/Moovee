@@ -484,8 +484,8 @@ function share(site)
 		"data": {
 			"version": "2.0.1",
 			"longUrl": link,
-			"login": "yourname",
-			"apiKey": "yourkey"
+			"login": "cornguo",
+			"apiKey": "R_4976efdab985f8bddaa1c25495000f53"
 		},
 		"success": function(data) {sharePost(site, data["results"][link]["shortUrl"]);}
 	});
