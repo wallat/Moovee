@@ -1,3 +1,7 @@
+20121024
+- use twitter bootstrap
+- simplify html document structure
+
 20121023
 - add link to WallaGroup
 - fix typo
