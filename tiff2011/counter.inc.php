@@ -9,7 +9,7 @@ if(!isset($_COOKIE['visitor'])){
     flock($fp, LOCK_UN);   // release the lock
     fclose($fp);
 //    setcookie("visitor", 1, time()+3600);
-    setcookie("visitor", 1, time()+30); // set to 30 sec.
+    @setcookie("visitor", 1, time()+30); // set to 30 sec.
 }
 echo "# {$counter}";
 ?>
