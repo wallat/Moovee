@@ -14,7 +14,7 @@
     <div class="navbar-inner">
         <div class="container-fluid">
             <a class="brand" href="."><?php echo $title;?></a>
-            <p class="navbar-text pull-right"><?php echo $extlinks;?></p>
+            <p id="extlinks" class="navbar-text pull-right"><?php echo $extlinks;?></p>
         </div>
     </div>
 </div>
