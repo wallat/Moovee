@@ -23,11 +23,8 @@ function render()
 	if(isIProduct() != false)
 	{
 		iProductForceApp();
-
-		$("body").append("<script src=\"../iscroll-min.js\" type=\"text/javascript\" />");
+//		$("body").append("<script src=\"../iscroll-min.js\" type=\"text/javascript\" />");
 		if(isIProduct() == "iPad") $("body").append("<script src=\"../dbltap-min.js\" type=\"text/javascript\" />");
-		$("body").append("<span id=\"iLayerTop\" class=\"hidden\"></span>");
-		document.addEventListener('touchmove', function(e) { e.preventDefault(); });
 	}
 
 	resizeDiv();
@@ -41,7 +38,7 @@ function resizeDiv()
 	if(isIProduct() != false && isIProduct() != "iPad")
 	{
 		iProductInit();
-		return false;
+	//	return false;
 	}
 
 	var docSize = getDocSize();
@@ -59,14 +56,6 @@ function iProductInit()
 	var docSize = getDocSize();
 
 	$("body").css("padding-top", "15px");
-
-	if($("#tabs").width() != 1280)
-	{
-		$("#tabs").width(1280).height(40);
-		tabsScroll = new iScroll("tabs");
-		if(isIProduct() != false && isIProduct() != "iPad")
-			$("#tabs").prepend("<span id=\"iBack\" onclick=\"iBack();\" class=\"tab\">&lt; BACK</span>&nbsp;<span id=\"iList\" onclick=\"iList();\" class=\"tab\">LIST</span>");
-	}
 }
 
 function refineDiv(divId, width, height)
@@ -105,13 +94,6 @@ var groupCache = new Array();
 
 function getGroup(obj)
 {
-	if(isIProduct() != false && isIProduct() != "iPad")
-	{
-		iProductInit();
-		$("#groupBox").css("z-index", "5");
-		$("#iLayerTop").text("#groupBox");
-	}
-
 	if($(obj).parent().hasClass("active")) return;
 	$(".tab").parent().removeClass("active");
 	$(obj).parent().addClass("active");
@@ -154,12 +136,6 @@ function refreshGroupBox(field, data)
 
 	if(groupCache[field] == undefined) groupCache[field] = data;
 
-	if(isIProduct() != false)
-	{
-		if(isIProduct() != "iPad") $("#groupList > li").css("padding", "5px 0");
-		groupListScroll = new iScroll("groupList");
-	}
-
 	$("#groupList > li > a").bind("click", function() {
 		getMovieTitles(this);
 		return false;
@@ -170,16 +146,6 @@ var movieTitlesCache = new Array();
 
 function getMovieTitles(obj)
 {
-	if(isIProduct() != false && isIProduct() != "iPad")
-	{
-		if($("#titleBox").css("z-index") != "5")
-		{
-			iProductInit();
-			$("#titleBox").css("z-index", "5");
-			$("#iLayerTop").text("#titleBox")
-		}
-	}
-
 	if($(obj).parent().hasClass("active")) return;
 	$("#groupBox li").removeClass("active");
 	$(obj).parent().addClass("active");
@@ -264,15 +230,6 @@ var movieTimeCache = new Array();
 
 function getMovieTime(obj)
 {
-	if(isIProduct() != false && isIProduct() != "iPad")
-	{
-		if($("#lPanel").css("z-index") != "5")
-		{
-			iProductInit();
-			$("#lPanel").css("z-index", "5");
-			$("#iLayerTop").text("#lPanel");
-		}
-	}
 	if($(obj).parent().hasClass("active")) return;
 	$("#titleBox li").removeClass("active");
 	$(obj).parent().addClass("active");
@@ -435,17 +392,6 @@ function updateSeledCount()
 	);
 	if($.browser.msie == true) $("#dropBox > h1").show();
 	else $("#dropBox > h1").show("highlight", {}, "slow");
-
-	if(isIProduct() != false)
-	{
-		iProductInit();
-		$("#dropBox").css("z-index", "5");
-		$("#iLayerTop").text("#dropBox");
-
-		$("#seledMovList").height($("#seledMovList").height() + $("#seledMovList > li").length * 10 + 80);
-		$("#seledMovList > li").css("padding", "5px 0");
-		seledMovListScroll = new iScroll("seledMovList");
-	}
 }
 
 function share(site)
@@ -608,40 +554,6 @@ function iProductForceApp()
 	if(navigator.userAgent.match(/Android/i)) return;
 	if(window.navigator.standalone != true) window.location = "..";
 
-}
-
-function iBack()
-{
-	if($("#groupBox").text() == "") return;
-
-	var backTo = null;
-
-	if($("#iLayerTop").text()[0] == "-")
-	{
-		backTo = $("#iLayerTop").text().replace(/^-/gi,"");
-		iProductInit();
-		$(backTo).css("z-index", "5");
-		$("#iLayerTop").text(backTo);
-		return;
-	}
-
-	if($("#iLayerTop").text() == "#dropBox") backTo = "#lPanel";
-	if($("#iLayerTop").text() == "#lPanel") backTo = "#titleBox";
-	if($("#iLayerTop").text() == "#titleBox") backTo = "#groupBox";
-
-	if(backTo == null) return;
-
-	iProductInit();
-	$(backTo).css("z-index", "5");
-	$("#iLayerTop").text(backTo);
-	return;
-}
-
-function iList()
-{
-	iProductInit();
-	if($("#iLayerTop").text()[0] != "-") $("#iLayerTop").text("-" + $("#iLayerTop").text());
-	$("#dropBox").css("z-index", "5");
 }
 
 function gup(name)
