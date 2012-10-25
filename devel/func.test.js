@@ -121,7 +121,7 @@ function refreshGroupBox(field, data)
 	$("#filter").html(field + ":");
 
 	for(i = 0, j = data.length; i < j; i++)
-		$("#groupBox").append("<li><a id=\"" + field + "-" + i + "\" href=\"#\">" + data[i] + "</a></li>");
+		$("#groupBox").append("<li><a id=\"" + field + "-" + i + "\" onclick=\"return false;\" href=\"#\">" + data[i] + "</a></li>");
 
 	if(groupCache[field] == undefined) groupCache[field] = data;
 
@@ -162,7 +162,7 @@ function refreshTitleBox(objid, data)
 	$("#titleBox").html("<li class=\"description disabled\">(括號後數字為節目手冊頁數)</li>");
 
 	for(i = 0, j = data.length; i < j; i++)
-	    $("#titleBox").append("<li><a id=\"mov-" + data[i]['KEY'] + "\" href=\"#\">"
+	    $("#titleBox").append("<li><a id=\"mov-" + data[i]['KEY'] + "\" onclick=\"return false;\" href=\"#\">"
 			+ "<span class=\"movTitle plainText\">" + data[i]['CTITLE'] + "</span>"
 			+ "<span class=\"movETitle hidden\">" + data[i]['ETITLE'] + "</span>"
 			+ "<span class=\"movPageNo\">(" + data[i]['PAGE'] + ")</span></a></li>");
