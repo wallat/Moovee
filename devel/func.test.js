@@ -8,7 +8,7 @@ function renderCal()
 
 function render()
 {
-	$("#tabs > .description > a").bind("click", function() {
+	$("#tabs > .description > a").on("click", function() {
 		void(window.open($(this).attr("href")));
 		return false;
 	});
@@ -28,7 +28,7 @@ function render()
 	}
 
 	resizeDiv();
-	$(window).bind("resize", function() {resizeDiv();});
+	$(window).on("resize", function() {resizeDiv();});
 
 	if(jQuery.browser.msie == true) $("div.fb_like:first").empty().html("<iframe src=\"http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fcornguo.atcity.org%2Ftest%2Fmoovee%2F&amp;layout=button_count&amp;show_faces=true&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=21\" style=\"border:none; overflow:hidden; width:100px; height:21px;\" frameborder=\"0\" scrolling=\"no\" allowTransparency=\"true\" />");
 }
@@ -125,7 +125,7 @@ function refreshGroupBox(field, data)
 
 	if(groupCache[field] == undefined) groupCache[field] = data;
 
-	$("#groupBox > li > a").bind("click", function() {
+	$("#groupBox > li > a").on("click", function() {
 		getMovieTitles(this);
 	});
 }
@@ -167,18 +167,18 @@ function refreshTitleBox(objid, data)
 			+ "<span class=\"movETitle hidden\">" + data[i]['ETITLE'] + "</span>"
 			+ "<span class=\"movPageNo\">(" + data[i]['PAGE'] + ")</span></a></li>");
 /*
-	$("#titleBox > li").bind("mouseover", function() {
+	$("#titleBox > li").on("mouseover", function() {
 		$(this).children("span.movTitle").toggleClass("hidden");
 		$(this).children("span.movETitle").toggleClass("hidden");
 	});
 
-	$("#titleBox > li").bind("mouseout", function() {
+	$("#titleBox > li").on("mouseout", function() {
 		$(this).children("span.movTitle").toggleClass("hidden");
 		$(this).children("span.movETitle").toggleClass("hidden");
 	});
 */
 
-	$("#titleBox > li > a").bind("dblclick", function() {
+	$("#titleBox > li > a").on("dblclick", function() {
 		imdbWindow(this);
 		return false;
 	});
@@ -193,7 +193,7 @@ function refreshTitleBox(objid, data)
 		}, 400);
 	}
 
-	$("#titleBox > li > a").bind("click", function() {
+	$("#titleBox > li > a").on("click", function() {
 		getMovieTime(this);
 	});
 
@@ -274,7 +274,7 @@ function refreshDragBox(data)
 	}
 
 	$("#dragBox > #movList > .movObj").draggable({opacity: 0.7, revert: 'invalid', helper: 'clone'});
-	$("#dragBox > #movList > .movObj").bind("click", function() {
+	$("#dragBox > #movList > .movObj").on("click", function() {
 		addMov($(this).attr("id"));
 		return false;
 	});
@@ -490,7 +490,7 @@ function imdbWindow(movTitleObj)
 		});
 		movOpt += "</ul>";
 		msgBox("plain", "<strong>Which movie?</strong>" + movOpt);
-		$("#movOpt > li").bind("click", function() {
+		$("#movOpt > li").on("click", function() {
 			void(window.open("http://www.imdb.com/find?s=all&q=" + escape($(this).text()), "imdbWindow"));
 			return false;
 		});
