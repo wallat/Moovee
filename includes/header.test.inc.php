@@ -12,13 +12,10 @@
 <link rel="stylesheet" href="../styles/style.test.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="../styles/print.test.css" type="text/css" media="print" />
 <link rel="stylesheet" href="../styles/movprops.test.css" type="text/css" />
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
 <script src="../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 <script src="../func.test.js" type="text/javascript"></script>
 <!--[if lt IE 9]>
 <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
-<style type="text/css">
-body { padding-top: 60px; } /* 60px to make the container go all the way to the bottom of the topbar */
-</style>
