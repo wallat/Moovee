@@ -550,14 +550,15 @@ function updateBreadcrumb(pos, text, id, dropdownId)
 	var eDropdown = $("#breadcrumb > .btn-group:nth-child(" + (pos+1) + ")");
 	if (eDropdown.length > 0) {
 		eDropdown.nextAll().remove();
+		eDropdown.children().removeClass("btn-primary");
 		eDropdown.children("span:first").attr("id", id).text(text);
 	} else {
 		$("#breadcrumb > .btn-group:nth-child(" + pos + ")").nextAll().remove();
-		$("#breadcrumb").append("<span class=\"btn-group\" id=\""+ id + "\"><span class=\"btn\">" + text + "</span></span>");
+		$("#breadcrumb").append("<div class=\"btn-group\" id=\""+ id + "\"><span class=\"btn\">" + text + "</span></div>");
 	}
 	if (dropdownId != null) {
-		$("#breadcrumb").append("<span class=\"btn-group\" id=\"" + id + "-select\"><span class=\"btn\">請選擇</span></span>");
-		$("#" + id + "-select").append("<span id=\"" + id + "-dropdown\" class=\"dropdown-toggle btn\" data-toggle=\"dropdown\"><b class=\"caret\"></b></span>");
+		$("#breadcrumb").append("<div class=\"btn-group\" id=\"" + id + "-select\"><span class=\"btn btn-primary\">請選擇</span></div>");
+		$("#" + id + "-select").append("<span id=\"" + id + "-dropdown\" class=\"dropdown-toggle btn btn-primary\" data-toggle=\"dropdown\"><b class=\"caret\"></b></span>");
 		$("#" + id + "-select").append("<ul id=\"" + dropdownId + "\"class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"" + id + "-dropdown\" style=\"max-height:400px; overflow:auto;\"></ul>");
 	}
 }
