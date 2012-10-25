@@ -20,13 +20,18 @@ else
     <meta name="viewport" content = "width = device-width, initial-scale = 1, user-scalable = no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <!-- Oh, yes, dear IE, please render it using chrome frame, or your almost-standard engine -->
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta http-equiv="X-UA-Compatible" content="IE=8" />
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="bootstrap/css/bootstrap-responsive.min.css" type="text/css" media="screen" />
     <link rel="stylesheet" href="styles/print.css" type="text/CSS" media="print" />
     <link rel="stylesheet" href="styles/movprops.css" type="text/css" />
+    <!-- Oh, yes, please render it using chrome frame, or your almost-standard engine -->
+    <!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
     <style>
       body {
         padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
