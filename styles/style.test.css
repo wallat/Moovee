@@ -10,14 +10,12 @@ cursor:pointer;
 
 #lPanel, #dropBox {
 height:600px;
-}
-
-#dragBox {
-height:500px;
+position:relative;
 }
 
 #remarkDesc {
-height:80px;
+position:absolute;
+bottom:0;
 font-size:80%;
 }
 
@@ -25,7 +23,7 @@ font-size:80%;
 background-color:#DDF!important;
 }
 
-#lPanel,#dropBox {
+#lPanel, #dropBox {
 overflow:auto;
 overflow-x:hidden;
 padding:5px;
