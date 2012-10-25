@@ -45,6 +45,7 @@ function resizeDiv()
 
 	refineDiv("lPanel", null, docSize['height']-210);
 	refineDiv("dropBox", null, docSize['height']-210);
+	refineDiv("dragBox", null, $("#lPanel").height()-$("#remarkDesc").height()-10);
 }
 
 function iProductInit()

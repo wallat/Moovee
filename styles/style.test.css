@@ -14,25 +14,24 @@ float:left;
 cursor:pointer;
 }
 
-#lPanel,#dropBox {
-height:600px;
-position:relative;
-}
-
-#remarkDesc {
-position:absolute;
-bottom:0;
-font-size:80%;
-}
-
 .dropBoxHover {
 background-color:#DDF!important;
 }
 
+#remarkDesc {
+position:absolute;
+bottom:70px;
+}
+
 #lPanel,#dropBox {
+height:600px;
 overflow:auto;
 overflow-x:hidden;
 padding:5px;
+}
+
+#remarkDesc {
+font-size:80%;
 }
 
 #catbox,#groupBox,#titleBox {
