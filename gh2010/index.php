@@ -21,17 +21,15 @@
 
 <div class="container-fluid">
     <div id="breadcrumb" class="well well-small dropdown">
-        <span class="btn-group">
+        <span class="btn-group inline">
             <span class="btn">點此開始</span><span id="bCat-dropdown" class="dropdown-toggle btn" data-toggle="dropdown"><b class="caret"></b></span>
-            <div id="catBox" class="dropdown-menu" role="menu" aria-labelledby="bCat-dropdown">
-            <ul id="tabs" class="nav">
-                <li><a id="by-CATEGORY" class="tab" onclick="getGroup(this);return false;" href="#CATEGORY">影展分類</a></li>
-                <li><a id="by-DATE" class="tab" onclick="getGroup(this);return false;" href="#DATE">播映日期</a></li>
-                <li><a id="by-PLACE" class="tab" onclick="getGroup(this);return false;" href="#PLACE">播映影廳</a></li>
-                <li><a id="by-GRADE" class="tab" onclick="getGroup(this);return false;" href="#GRADE">電影分級</a></li>
-                <li><a id="by-REMARK" class="tab" onclick="getGroup(this);return false;" href="#REMARK">場次備註</a></li>
+            <ul id="tabs" class="dropdown-menu" role="menu" aria-labelledby="bCat-dropdown">
+                <li role="menuitem"><a id="by-CATEGORY" class="tab" onclick="getGroup(this);return false;" href="#CATEGORY">影展分類</a></li>
+                <li role="menuitem"><a id="by-DATE" class="tab" onclick="getGroup(this);return false;" href="#DATE">播映日期</a></li>
+                <li role="menuitem"><a id="by-PLACE" class="tab" onclick="getGroup(this);return false;" href="#PLACE">播映影廳</a></li>
+                <li role="menuitem"><a id="by-GRADE" class="tab" onclick="getGroup(this);return false;" href="#GRADE">電影分級</a></li>
+                <li role="menuitem"><a id="by-REMARK" class="tab" onclick="getGroup(this);return false;" href="#REMARK">場次備註</a></li>
             </ul>
-            </div>
         </span>
     </div>
 </div>
