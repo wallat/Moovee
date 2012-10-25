@@ -23,7 +23,7 @@ function render()
 	if(isIProduct() != false)
 	{
 		iProductForceApp();
-//		$("body").append("<script src=\"../iscroll-min.js\" type=\"text/javascript\" />");
+		$("body").append("<script src=\"../iscroll-min.js\" type=\"text/javascript\" />");
 		if(isIProduct() == "iPad") $("body").append("<script src=\"../dbltap-min.js\" type=\"text/javascript\" />");
 	}
 
@@ -45,9 +45,6 @@ function resizeDiv()
 
 	refineDiv("lPanel", null, docSize['height']-210);
 	refineDiv("dropBox", null, docSize['height']-210);
-
-	if(jQuery.browser.msie == true) $("#dragBox").css({"height": parseInt($("#lPanel").css("height")) - 110 + "px"});
-	else $("#dragBox").css({"height": parseInt($("#lPanel").css("height")) - 100 + "px"});
 }
 
 function iProductInit()
@@ -97,9 +94,7 @@ function getGroup(obj)
 	if($(obj).parent().hasClass("active")) return;
 	$(".tab").parent().removeClass("active");
 	$(obj).parent().addClass("active");
-	if($("#groupBox > #groupList").is(":visible")) $("#groupBox > #groupList").hide("drop", {}, "fast");
-	if($("#titleBox").children(":first").is(":visible")) $("#titleBox").children().hide("drop", {}, "fast", function(){$("#titleBox").empty();});
-	if($("#dragBox").children(":first").is(":visible")) $("#dragBox").children().hide("drop", {}, "fast", function(){$("#dragBox").empty();});
+	$("#dragBox").hide("drop", {}, "fast");
 
 	updateBreadcrumb(0, $(obj).text(), "bGroup", "groupBox");
 
@@ -108,7 +103,6 @@ function getGroup(obj)
 	if(groupCache[field] != undefined) refreshGroupBox(field, groupCache[field]);
 	else
 	{
-		$("#groupBox").addClass("greyBox");
 		$.ajax({
 			"type": "POST",
 			"url": "getData.php",
@@ -123,22 +117,16 @@ function getGroup(obj)
 
 function refreshGroupBox(field, data)
 {
-	$("#groupBox").html("<ul id=\"groupList\" class=\"unstyled\"></ul>");
+	$("#groupBox").html("");
 	$("#filter").html(field + ":");
 
 	for(i = 0, j = data.length; i < j; i++)
-		$("#groupBox > #groupList").append("<li><a id=\"" + field + "-" + i + "\" href=\"#\">" + data[i] + "</a></li>");
-
-	$("#groupBox").removeClass("greyBox");
-
-	if($.browser.msie == true || isIProduct() != false) $("#groupBox > #groupList").show();
-	else $("#groupBox > #groupList").show("drop", {}, "fast");
+		$("#groupBox").append("<li><a id=\"" + field + "-" + i + "\" href=\"#\">" + data[i] + "</a></li>");
 
 	if(groupCache[field] == undefined) groupCache[field] = data;
 
-	$("#groupList > li > a").bind("click", function() {
+	$("#groupBox > li > a").bind("click", function() {
 		getMovieTitles(this);
-		return false;
 	});
 }
 
@@ -147,18 +135,16 @@ var movieTitlesCache = new Array();
 function getMovieTitles(obj)
 {
 	if($(obj).parent().hasClass("active")) return;
-	$("#groupBox li").removeClass("active");
+	$("#groupBox > li").removeClass("active");
 	$(obj).parent().addClass("active");
 	$("#filter").html($("#filter").text().split(":")[0] + ":" + $(obj).text());
-	if($("#titleBox").children(":first").is(":visible")) $("#titleBox").children().hide("drop", {}, "fast");
-	if($("#dragBox").children(":first").is(":visible")) $("#dragBox").children().hide("drop", {}, "fast", function(){$("#dragBox").empty();});
+	$("#dragBox").hide("drop", {}, "fast");
 
 	updateBreadcrumb(1, $(obj).text(), "bTitle", "titleBox");
 
 	if(movieTitlesCache[obj.id] != undefined) refreshTitleBox(obj.id, movieTitlesCache[obj.id]);
 	else
 	{
-		$("#titleBox").addClass("greyBox");
 		$.ajax({
 			"type": "POST",
 			"url": "getData.php",
@@ -173,56 +159,50 @@ function getMovieTitles(obj)
 
 function refreshTitleBox(objid, data)
 {
-	$("#titleBox").html("<div class=\"description\">(括號後數字為節目手冊頁數)</div><ul id=\"titleList\" class=\"unstyled\"></ul>");
+	$("#titleBox").html("<li class=\"description disabled\">(括號後數字為節目手冊頁數)</li>");
 
 	for(i = 0, j = data.length; i < j; i++)
-	    $("#titleBox > #titleList").append("<li><a id=\"mov-" + data[i]['KEY'] + "\" href=\"#\">"
+	    $("#titleBox").append("<li><a id=\"mov-" + data[i]['KEY'] + "\" href=\"#\">"
 			+ "<span class=\"movTitle plainText\">" + data[i]['CTITLE'] + "</span>"
 			+ "<span class=\"movETitle hidden\">" + data[i]['ETITLE'] + "</span>"
 			+ "<span class=\"movPageNo\">(" + data[i]['PAGE'] + ")</span></a></li>");
 /*
-	$("#titleBox > #titleList > li").bind("mouseover", function() {
+	$("#titleBox > li").bind("mouseover", function() {
 		$(this).children("span.movTitle").toggleClass("hidden");
 		$(this).children("span.movETitle").toggleClass("hidden");
 	});
 
-	$("#titleBox > #titleList > li").bind("mouseout", function() {
+	$("#titleBox > li").bind("mouseout", function() {
 		$(this).children("span.movTitle").toggleClass("hidden");
 		$(this).children("span.movETitle").toggleClass("hidden");
 	});
 */
 
-	$("#titleBox > #titleList > li > a").bind("dblclick", function() {
+	$("#titleBox > li > a").bind("dblclick", function() {
 		imdbWindow(this);
 		return false;
 	});
 
 	if(isIProduct() == "iPad")
 	{
-		$("#titleBox > #titleList > li > a").doubletap(function() {
-			imdbWindow($("#titleBox > #titleList > li:hover").get());
+		$("#titleBox > li > a").doubletap(function() {
+			imdbWindow($("#titleBox > li:hover").get());
 			return false;
 		}, function() {
 			return false;
 		}, 400);
 	}
 
-	$("#titleBox > #titleList > li > a").bind("click", function() {
+	$("#titleBox > li > a").bind("click", function() {
 		getMovieTime(this);
-		return false;
 	});
-
-	$("#titleBox").removeClass("greyBox");
-	if($.browser.msie == true || isIProduct() != false) $("#titleBox").children().show();
-	else $("#titleBox").children().show("drop", {}, "fast");
 
 	if(movieTitlesCache[objid] == undefined) movieTitlesCache[objid] = data;
 
 	if(isIProduct() != false)
 	{
-		$("#titleBox > #titleList").height($("#titleBox > #titleList").height() + data.length * 10 + 20);
-		if(isIProduct() != "iPad") $("#titleList > li").css("padding", "5px 0");
-		titleListScroll = new iScroll("titleList");
+		$("#titleBox").height($("#titleBox").height() + data.length * 10 + 20);
+		titleListScroll = new iScroll("titleBox");
 	}
 }
 
@@ -231,9 +211,9 @@ var movieTimeCache = new Array();
 function getMovieTime(obj)
 {
 	if($(obj).parent().hasClass("active")) return;
-	$("#titleBox li").removeClass("active");
+	$("#titleBox > li").removeClass("active");
 	$(obj).parent().addClass("active");
-	if($("#dragBox").children(":first").is(":visible")) $("#dragBox").children().hide("drop", {}, "fast");
+	$("#dragBox").hide("drop", {}, "fast");
 
 	updateBreadcrumb(2, $(obj).children(":nth-child(1)").text(), "bMovie", null);
 
@@ -299,8 +279,7 @@ function refreshDragBox(data)
 		return false;
 	});
 	$("#lPanel").removeClass("greyBox");
-	if($.browser.msie == true) $("#dragBox").children().show();
-	else $("#dragBox").children().show('drop', {}, 'fast');
+	$("#dragBox").show("drop", {}, "fast");
 
 	if(movieTimeCache[data[0]['CTITLE']] == undefined) movieTimeCache[data[0]['CTITLE']] = data;
 
@@ -579,6 +558,6 @@ function updateBreadcrumb(pos, text, id, dropdownId)
 	if (dropdownId != null) {
 		$("#breadcrumb").append("<span class=\"btn-group\" id=\"" + id + "-select\"><span class=\"btn\">請選擇</span></span>");
 		$("#" + id + "-select").append("<span id=\"" + id + "-dropdown\" class=\"dropdown-toggle btn\" data-toggle=\"dropdown\"><b class=\"caret\"></b></span>");
-		$("#" + id + "-select").append("<div id=\"" + dropdownId + "\"class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"" + id + "-dropdown\" style=\"max-height:400px; overflow:auto;\"></div>");
+		$("#" + id + "-select").append("<ul id=\"" + dropdownId + "\"class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"" + id + "-dropdown\" style=\"max-height:400px; overflow:auto;\"></ul>");
 	}
 }
