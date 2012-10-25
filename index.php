@@ -59,8 +59,8 @@ else
         <span>Hint: iPad / iPhone / iPod user, try to add this page to your Home Screen :)</span><br />
         <span>20121020: Here's <a href="https://github.com/cornguo/moovee">the source code</a> of this tool. Have fun :D</span>
     </div>
-    <div>
-        <object data="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fcornguo.atcity.org%2Ftest%2Fmoovee%2F&amp;layout=button_count&amp;show_faces=true&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=21" style="border:none; overflow:hidden; width:100px; height:21px;" type="text/html"></object>
+    <div class="fb_like">
+        <object data="http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fcornguo.atcity.org%2Ftest%2Fmoovee%2F&amp;layout=button_count&amp;show_faces=true&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=21" style="border:none; overflow:hidden; height:21px;" type="text/html"></object>
     </div>
 </div>
 </body>
