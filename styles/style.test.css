@@ -1,5 +1,6 @@
 body {
-font-family:sans-serif,'iLiHei', 'LiHei Pro', '微軟正黑體', 'Arial Unicode MS';
+font-family:sans-serif,'iLiHei','LiHei Pro','微軟正黑體','Arial Unicode MS';
+padding-top:60px;
 overflow:hidden;
 }
 
@@ -9,7 +10,7 @@ float:left;
 cursor:pointer;
 }
 
-#lPanel, #dropBox {
+#lPanel,#dropBox {
 height:600px;
 position:relative;
 }
@@ -24,10 +25,14 @@ font-size:80%;
 background-color:#DDF!important;
 }
 
-#lPanel, #dropBox {
+#lPanel,#dropBox {
 overflow:auto;
 overflow-x:hidden;
 padding:5px;
+}
+
+#catbox,#groupBox,#titleBox {
+z-index:999;
 }
 
 li {
@@ -139,11 +144,11 @@ display:block;
 border:1px solid #900;
 }
 
-.shareBtn:hover, #shareLink:hover {
+.shareBtn:hover,#shareLink:hover {
 background-color:#FFCCCC;
 }
 
-.shareBtn, .ui-dialog, #shareLink, .ui-dialog-content {
+.shareBtn,.ui-dialog,#shareLink,.ui-dialog-content {
 border-radius:10px;
 -moz-border-radius:10px;
 -webkit-border-radius:10px;
