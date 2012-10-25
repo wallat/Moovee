@@ -1,3 +1,7 @@
+20121025
+- adjust javascript to fit in bootstrap
+- adjust css
+
 20121024
 - use twitter bootstrap
 - simplify html document structure
