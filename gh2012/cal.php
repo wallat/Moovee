@@ -11,9 +11,9 @@ $k = new moovee();
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Moovee -- 2010 Taipei Film Festival (Calendar mode)</title>
+<title>Moovee -- 2012 Golden Horse Film Festival (Calendar mode)</title>
 <meta name="description" content="很陽春的排片單系統" />
-<meta name="keywords" content="排片單, 2010, 台北電影節, 影展, Taipei Film Festival, TIFF" />
+<meta name="keywords" content="排片單, 2012, 金馬, 金馬影展, Golden Horse 2012" />
 <!-- Oh, yes, please render it using chrome frame, or your almost-standard engine -->
 <meta http-equiv="X-UA-Compatible" content="chrome=1" />
 <meta http-equiv="X-UA-Compatible" content="IE=8" />
