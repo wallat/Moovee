@@ -14,6 +14,9 @@ class moovee
 
 	function __construct()
 	{
+		// set timezone
+		date_default_timezone_set('Asia/Taipei');
+
 		$this->errMsg = array();
 		$this->group = array();
 
