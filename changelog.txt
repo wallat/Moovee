@@ -1,3 +1,7 @@
+20121030
+- merge with WallaGroup's branch (special thanks to @johncylee)
+>> now we have Makefile :)
+
 20121025
 - adjust javascript to fit in bootstrap
 - adjust css
