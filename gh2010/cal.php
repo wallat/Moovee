@@ -5,15 +5,15 @@ echo '<?xml version="1.0" encoding="UTF-8"?>';
 $movs = "";
 if(isset($_GET['movs'])) $movs = preg_replace('/[^0-9,]/', '', $_GET['movs']);
 include("../includes/mooveeClass.inc.php");
+include("config.php");
 $k = new moovee();
 ?>
-
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Moovee -- Golden Horse 2010 (Calendar mode)</title>
-<meta name="description" content="很陽春的排片單系統" />
-<meta name="keywords" content="排片單, 2010, 金馬, 金馬影展, Golden Horse 2010" />
+<title><?php echo $title; ?> (Calendar mode)</title>
+<meta name="description" content="<?php echo $description; ?>" />
+<meta name="keywords" content="<?php echo $keywords; ?>" />
 <!-- Oh, yes, please render it using chrome frame, or your almost-standard engine -->
 <meta http-equiv="X-UA-Compatible" content="chrome=1" />
 <meta http-equiv="X-UA-Compatible" content="IE=8" />
@@ -22,11 +22,8 @@ $k = new moovee();
 <link rel="stylesheet" href="../styles/calprint.css" type="text/CSS" media="print" />
 <link rel="stylesheet" href="../styles/movprops.css" type="text/css" />
 <link rel="stylesheet" href="../styles/calprops.css" type="text/css" />
-<script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<script type="text/javascript">
-google.load("jquery", "1.3.2");
-google.load("jqueryui", "1.7.2");
-</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/jquery-ui.min.js"></script>
 <script src="../func.js" type="text/javascript"></script>
 </head>
 <body onload="renderCal();">
