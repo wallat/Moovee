@@ -4,6 +4,6 @@
         節目資訊以節目手冊與台北電影節佈告為準，本頁面僅供輔助參考<br />
         Created by <a href="http://cornguo.atcity.org">CornGuo</a> @ 20100310<a href="../changelog.txt" title="changelog">,</a>
         updated by <a href="http://www.wallagroup.com/">WallGroup</a> @ Oct. 2012
-        (<?php include("counter.inc.php");?>)
+        (<?php echo "# {$counter}"; ?>)
     </div>
 </div>
