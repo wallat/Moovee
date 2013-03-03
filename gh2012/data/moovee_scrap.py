@@ -377,7 +377,11 @@ CATEGORIES = {   u'入圍影片': [   {   'id': '50770c1a228a881151d361b7',
                                         {   'id': '5071afec228a881151d360f2',
                                             'title': u'樂活俱樂部'}],
     u'特別放映': [   {   'id': '5077150d228a881151d361cd',
-                             'title': u'寒戰'}],
+                         'title': u'寒戰'},
+                     {   'id': '50863be6228a881151d36c80',
+                         'title': u'聖殤'},
+                     {   'id': '5076ce67228a881151d36163',
+                         'title': u'少年PI的奇幻漂流'}],
     u'終身成就獎 石雋': [   {   'id': '507715dc228a881151d361ce',
                                        'title': u'大輪迴'}],
     u'華語電影世界 / 中國獨立映像': [   {   'id': '50771783228a881151d361d1',
@@ -412,8 +416,6 @@ CATEGORIES = {   u'入圍影片': [   {   'id': '50770c1a228a881151d361b7',
                           'title': u'親愛的奶奶'},
                       {   'id': '5075a5d0228a881151d36154',
                           'title': u'甜‧ 祕密'}],
-    u'神秘場': [   {   'id': '50863be6228a881151d36c80',
-                          'title': u'聖殤'}],
                  }
 
 def screenscrap(url, writer):
@@ -433,29 +435,43 @@ def screenscrap(url, writer):
     en_bs = BeautifulSoup(f2)
     eng_rows = en_bs.body.find('div', id='main').find('table').tr.findNextSiblings(True)
     for row in rows:
-        # 0-date, 1-place, 2-time, 3-ctitle, 4-duration, 5-grade, 6-remark, 7-login
-        cols = row.findAll('td')
-        remark_mapping = {u'影人出席': '★', u'影片拷貝非英語發音且無英文字幕': '▲', u'已售完': '◎'}
-        remark = ''
-        span = cols[6].span
-        while span:
-            if span.span:
-                remark += remark_mapping[span['title']]
-            span = span.findNextSibling('span')
-        duration = cols[4].string.replace(u'分', '')
-        ctitle = cols[3].a.string
-        page = mp.get(ctitle.encode('utf-8'))
-        if not page:
-            raise Exception(ctitle.encode('utf-8'))
-        category = '_CATEGORY_'
-        for c in CATEGORIES:
-            if ctitle in [m['title'] for m in CATEGORIES[c]]:
-                category = c
         eng_row = eng_rows.pop(0)
-        etitle = eng_row.findAll('td')[3].a.string
+        try:
+            # 0-date, 1-place, 2-time, 3-ctitle, 4-duration, 5-grade, 6-remark, 7-login
+            cols = row.findAll('td')
+            remark_mapping = {u'影人出席': '★', u'影片拷貝非英語發音且無英文字幕': '▲', u'已售完': '◎'}
+            remark = ''
+            span = cols[6].span
+            while span:
+                if span.span:
+                    remark += remark_mapping[span['title']]
+                span = span.findNextSibling('span')
+            duration = cols[4].string.replace(u'分', '')
+            if not cols[3].a:
+                continue
+            ctitle = cols[3].a.string
+            etitle = eng_row.findAll('td')[3].a.string
+            page = mp.get(ctitle.encode('utf-8'))
+            if not page:
+                raise Exception('missing: %s' % ctitle.encode('utf-8'))
+            category = '_CATEGORY_'
+            link = ''
+            for c in CATEGORIES:
+                for movie in CATEGORIES[c]:
+                    if ctitle == movie['title']:
+                        category = c
+                        if movie['id']:
+                            link = 'http://www.wallagroup.com/movies/%s/' % movie['id']
+                        break
+        except:
+            print >> sys.stderr, 'url: %s\nrow: %s' % (url, row)
+            import traceback
+            traceback.print_exc()
+            sys.exit()
         writer.writerow([
                 cols[1].string, cols[0].string, cols[2].string, duration, category.encode('utf-8'),
                 ctitle, etitle, cols[5].span.string, remark, page,
+#                link,
                 ])
 
 
@@ -464,7 +480,9 @@ def main():
                % d for d in xrange(8, 30)]
     writer = csv.writer(sys.stdout, dialect='excel-tab')
     writer.writerow(['PLACE', 'DATE', 'TIME', 'DURATION', 'CATEGORY', 'CTITLE',
-                     'ETITLE', 'GRADE', 'REMARK', 'PAGE'])
+                     'ETITLE', 'GRADE', 'REMARK', 'PAGE',
+#                     'LINK',
+                     ])
     for url in urls:
         screenscrap(url, writer)
 
