@@ -1,4 +1,4 @@
-subdirs=gh2012 packjs
+subdirs=gh2013f packjs
 
 .PHONY: all
 all: func.test.js func.js build_subs
