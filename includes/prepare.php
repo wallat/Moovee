@@ -6,8 +6,8 @@ file_put_contents("movies.json", json_encode($data));
 file_put_contents("collision.json", json_encode(pre_collision($data)));
 
 // CACHE fields
-// PLACE, DATE, CATEGORY, CTITLE, GRADE, REMARK
-$fields = array("PLACE", "DATE", "CATEGORY", "CTITLE", "GRADE", "REMARK");
+// PLACE, DATE, CATEGORY, CTITLE, GRADE, REMARK, LINK
+$fields = array("PLACE", "DATE", "CATEGORY", "CTITLE", "GRADE", "REMARK", "LINK");
 
 foreach($fields as $field)
 {

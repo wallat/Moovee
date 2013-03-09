@@ -36,7 +36,8 @@ echo "$lineN ";
 				'ETITLE' => $line[6],
 				'GRADE' => $line[7],
 				'REMARK' => $line[8],
-				'PAGE' => $line[9]
+				'PAGE' => $line[9],
+				'LINK' => $line[10],
 			);
 			$data[] = $tmp;
 		}
