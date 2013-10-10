@@ -3,7 +3,7 @@ function renderCal()
 	var calMov = $(".calMov");
 	for(i = 0, j = calMov.length; i < j; i++) $(calMov[i]).appendTo('#d_' + calMov[i].id.split('_')[1]).show();
 	window.print();
-	if(isIProduct() == false) window.location.replace(window.location.href.replace("cal.php", ""));
+	if(isIProduct() === false) window.location.replace(window.location.href.replace("cal.php", ""));
 }
 
 function render()
@@ -20,7 +20,7 @@ function render()
 
 	addMov("none-none");
 
-	if(isIProduct() != false)
+	if(isIProduct() !== false)
 	{
 		iProductForceApp();
 		$("body").append("<script src=\"../iscroll-min.js\" type=\"text/javascript\" />");
@@ -30,12 +30,12 @@ function render()
 	resizeDiv();
 	$(window).on("resize", function() {resizeDiv();});
 
-	if(jQuery.browser.msie == true) $("div.fb_like:first").empty().html("<iframe src=\"http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fcornguo.atcity.org%2Ftest%2Fmoovee%2F&amp;layout=button_count&amp;show_faces=true&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=21\" style=\"border:none; overflow:hidden; width:100px; height:21px;\" frameborder=\"0\" scrolling=\"no\" allowTransparency=\"true\" />");
+	if(jQuery.browser.msie === true) $("div.fb_like:first").empty().html("<iframe src=\"http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fcornguo.atcity.org%2Ftest%2Fmoovee%2F&amp;layout=button_count&amp;show_faces=true&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=21\" style=\"border:none; overflow:hidden; width:100px; height:21px;\" frameborder=\"0\" scrolling=\"no\" allowTransparency=\"true\" />");
 }
 
 function resizeDiv()
 {
-	if(isIProduct() != false && isIProduct() != "iPad")
+	if(isIProduct() !== false && isIProduct() != "iPad")
 	{
 		iProductInit();
 	//	return false;
@@ -43,8 +43,8 @@ function resizeDiv()
 
 	var docSize = getDocSize();
 
-	refineDiv("lPanel", null, docSize['height']-210);
-	refineDiv("dropBox", null, docSize['height']-210);
+	refineDiv("lPanel", null, docSize.height-210);
+	refineDiv("dropBox", null, docSize.height-210);
 	refineDiv("dragBox", null, $("#lPanel").height()-$("#remarkDesc").height()-10);
 }
 
@@ -61,8 +61,8 @@ function refineDiv(divId, width, height)
 	//document.getElementById(divId).style['MozBorderRadius'] = "10px";
 	//document.getElementById(divId).style['WebkitBorderRadius'] = "10px";
 
-	if(width) $("#" + divId).width(parseInt(width));
-	if(height) $("#" + divId).height(parseInt(height));
+	if(width) $("#" + divId).width(parseInt(width, 10));
+	if(height) $("#" + divId).height(parseInt(height, 10));
 }
 
 function getDocSize()
@@ -88,7 +88,7 @@ function getDocSize()
 	return {"width": myWidth, "height": myHeight};
 }
 
-var groupCache = new Array();
+var groupCache = [];
 
 function getGroup(obj)
 {
@@ -101,7 +101,7 @@ function getGroup(obj)
 
 	var field = obj.id.split("-")[1];
 
-	if(groupCache[field] != undefined) refreshGroupBox(field, groupCache[field]);
+	if(groupCache[field] !== undefined) refreshGroupBox(field, groupCache[field]);
 	else
 	{
 		$.ajax({
@@ -124,14 +124,14 @@ function refreshGroupBox(field, data)
 	for(i = 0, j = data.length; i < j; i++)
 		$("#groupBox").append("<li><a id=\"" + field + "-" + i + "\" onclick=\"return false;\" href=\"#\">" + data[i] + "</a></li>");
 
-	if(groupCache[field] == undefined) groupCache[field] = data;
+	if(groupCache[field] === undefined) groupCache[field] = data;
 
 	$("#groupBox > li > a").on("click", function() {
 		getMovieTitles(this);
 	});
 }
 
-var movieTitlesCache = new Array();
+var movieTitlesCache = [];
 
 function getMovieTitles(obj)
 {
@@ -143,7 +143,7 @@ function getMovieTitles(obj)
 
 	updateBreadcrumb(1, $(obj).text(), "bTitle", "titleBox");
 
-	if(movieTitlesCache[obj.id] != undefined) refreshTitleBox(obj.id, movieTitlesCache[obj.id]);
+	if(movieTitlesCache[obj.id] !== undefined) refreshTitleBox(obj.id, movieTitlesCache[obj.id]);
 	else
 	{
 		$.ajax({
@@ -164,13 +164,13 @@ function refreshTitleBox(objid, data)
 
 	for(i = 0, j = data.length; i < j; i++) {
 		var t = $('#titleBox').append(
-			'<li><a id="mov-' + data[i]['KEY'] + '" onclick="return false;" href="#">' +
-					'<span class="movTitle plainText">' + data[i]['CTITLE'] + '</span>' +
-					'<span class="movETitle hidden">' + data[i]['ETITLE'] + '</span>');
-		if(data[i]['LINK']) {
-			t.append('<span class="movLink hidden">' + data[i]['LINK'] + '</span>');
+			'<li><a id="mov-' + data[i].KEY + '" onclick="return false;" href="#">' +
+					'<span class="movTitle plainText">' + data[i].CTITLE + '</span>' +
+					'<span class="movETitle hidden">' + data[i].ETITLE + '</span>');
+		if(data[i].LINK) {
+			t.append('<span class="movLink hidden">' + data[i].LINK + '</span>');
 		}
-		t.append('<span class="movPageNo">(' + data[i]['PAGE'] + ')</span></a></li>');
+		t.append('<span class="movPageNo">(' + data[i].PAGE + ')</span></a></li>');
 /*
 	$("#titleBox > li").on("mouseover", function() {
 		$(this).children("span.movTitle").toggleClass("hidden");
@@ -203,16 +203,16 @@ function refreshTitleBox(objid, data)
 		getMovieTime(this);
 	});
 
-	if(movieTitlesCache[objid] == undefined) movieTitlesCache[objid] = data;
+	if(movieTitlesCache[objid] === undefined) movieTitlesCache[objid] = data;
 
-	if(isIProduct() != false)
+	if(isIProduct() !== false)
 	{
 		$("#titleBox").height($("#titleBox").height() + data.length * 10 + 20);
 		titleListScroll = new iScroll("titleBox");
 	}
 }
 
-var movieTimeCache = new Array();
+var movieTimeCache = [];
 
 function getMovieTime(obj)
 {
@@ -225,7 +225,7 @@ function getMovieTime(obj)
 
 	var movTitle = $(obj).children(".movTitle").text();
 
-	if(movieTimeCache[movTitle] != undefined) refreshDragBox(movieTimeCache[movTitle]);
+	if(movieTimeCache[movTitle] !== undefined) refreshDragBox(movieTimeCache[movTitle]);
 	else
 	{
 		$("#lPanel").addClass("greyBox");
@@ -246,27 +246,27 @@ function refreshDragBox(data)
 	var desc = "(點選或拖曳至右方區塊)";
 	var showETitle = true;
 
-	if(isIProduct() != false)
+	if(isIProduct() !== false)
 	{
 		desc = "(點選加入我的片單)";
 		if(isIProduct() != "iPad") showETitle = false;
 	}
 
-	if(data[0]['LINK']) {
+	if(data[0].LINK) {
 		$("#dragBox").html("<div id=\"infoBox\"><img id=\"imdbBtn\" src=\"../icon/walla.png\" alt=\"Lookup this movie in Wallagroup\" onclick=\"imdbWindow($(this).parent());\" /></div>");
 	} else {
 		$("#dragBox").html("<div id=\"infoBox\"><img id=\"imdbBtn\" src=\"../icon/IMDb.png\" alt=\"Lookup this movie in IMDb\" onclick=\"imdbWindow($(this).parent());\" /></div>");
 	}
 
-	$("#dragBox > #infoBox").append("<h1 class=\"movTitle\">" + data[0]['CTITLE'] + "</h1>");
+	$("#dragBox > #infoBox").append("<h1 class=\"movTitle\">" + data[0].CTITLE + "</h1>");
 
-	if(data[0]['GRADE']) $("#infoBox > h1").append(" (" + data[0]['GRADE'] + ")");
+	if(data[0].GRADE) $("#infoBox > h1").append(" (" + data[0].GRADE + ")");
 
-	if(showETitle) $("#infoBox").append("<h2 class=\"movETitle\">" + data[0]['ETITLE'] + "</h2>");
-	else $("#infoBox").append("<h2 class=\"movETitle hidden\">" + data[0]['ETITLE'] + "</h2>");
+	if(showETitle) $("#infoBox").append("<h2 class=\"movETitle\">" + data[0].ETITLE + "</h2>");
+	else $("#infoBox").append("<h2 class=\"movETitle hidden\">" + data[0].ETITLE + "</h2>");
 
-	if(data[0]['LINK']) {
-		$("#infoBox").append("<span class=\"movLink hidden\">" + data[0]['LINK'] + "</span>");
+	if(data[0].LINK) {
+		$("#infoBox").append("<span class=\"movLink hidden\">" + data[0].LINK + "</span>");
 	}
 	$("#infoBox").append("<div class=\"description\">" + desc + "</div>");
 	$("#dragBox").append("<ul id=\"movList\"></ul>");
@@ -277,11 +277,11 @@ function refreshDragBox(data)
 
 	for(i = 0, j = data.length; i < j; i++)
 	{
-		var endTime = getEndTime(data[i]['START'], data[i]['END']);
-		appendObj = $("<li id=\"mov-" + data[i]['KEY'] + "\" class=\"movObj\">"
-			+ "<span class=\"movTime\">" + data[i]['START'] + " -- " + endTime + "</span>"
-			+ "<span class=\"movPlace\">" + data[i]['PLACE'] + "</span>"
-			+ "<span class=\"movRemark\">" + data[i]['REMARK'] + "</span></li>");
+		var endTime = getEndTime(data[i].START, data[i].END);
+		appendObj = $("<li id=\"mov-" + data[i].KEY + "\" class=\"movObj\">" +
+			"<span class=\"movTime\">" + data[i].START + " -- " + endTime + "</span>" +
+			"<span class=\"movPlace\">" + data[i].PLACE + "</span>" +
+			"<span class=\"movRemark\">" + data[i].REMARK + "</span></li>");
 		appendObj.children().addClass("plainText");
 		if(data[i][filterVar[0]] != filterVar[1]) appendObj.children().addClass("notMatch");
 		$("#dragBox > #movList").append(appendObj);
@@ -295,9 +295,9 @@ function refreshDragBox(data)
 	$("#lPanel").removeClass("greyBox");
 	$("#dragBox").show("drop", {}, "fast");
 
-	if(movieTimeCache[data[0]['CTITLE']] == undefined) movieTimeCache[data[0]['CTITLE']] = data;
+	if(movieTimeCache[data[0].CTITLE] === undefined) movieTimeCache[data[0].CTITLE] = data;
 
-	if(isIProduct() != false && isIProduct() != "iPad")
+	if(isIProduct() !== false && isIProduct() != "iPad")
 	{
 		$("#movList > li").css("padding", "5px 0");
 	}
@@ -331,28 +331,29 @@ function refreshDropBox(data)
 		var error = false;
 		for(i = 0, j = data.length; i < j; i++)
 		{
-			if(data[i] != null)
+			if(data[i] !== null)
 			{
-				var endTime = getEndTime(data[i]['START'], data[i]['END']);
-				var h = "<li id=\"smov-" + data[i]['KEY'] + "\" class=\"seledMovObj\" onclick=\"removeMov(this.id);\">" +
-						"<span class=\"movTime\">" + data[i]['START'] + " -- " + endTime + "</span>" +
-						"<span class=\"movPlace\">" + data[i]['PLACE'] + "</span>" +
-						"<span class=\"movTitle\">" + data[i]['CTITLE'] + "</span>" +
-						"<span class=\"movETitle hidden\">" + data[i]['ETITLE'] + "</span>";
-				if(data[i]['LINK']) {
-					h += "<span class=\"movLink hidden\">" + data[i]['LINK'] + "</span>"
+				var endTime = getEndTime(data[i].START, data[i].END);
+                                var appendObj;
+				var h = "<li id=\"smov-" + data[i].KEY + "\" class=\"seledMovObj\" onclick=\"removeMov(this.id);\">" +
+						"<span class=\"movTime\">" + data[i].START + " -- " + endTime + "</span>" +
+						"<span class=\"movPlace\">" + data[i].PLACE + "</span>" +
+						"<span class=\"movTitle\">" + data[i].CTITLE + "</span>" +
+						"<span class=\"movETitle hidden\">" + data[i].ETITLE + "</span>";
+				if(data[i].LINK) {
+					h += "<span class=\"movLink hidden\">" + data[i].LINK + "</span>";
 				}
-				h += "<span class=\"movRemark\">" + data[i]['REMARK'] + "</span>" +
-						"<span class=\"movPageNo\">(" + data[i]['PAGE'] + ")</span></li>"
-				var appendObj = $(h);
-				if(data[i]['CTITLE'].indexOf('(取消)') != -1)
+				h += "<span class=\"movRemark\">" + data[i].REMARK + "</span>" +
+						"<span class=\"movPageNo\">(" + data[i].PAGE + ")</span></li>";
+				appendObj = $(h);
+				if(data[i].CTITLE.indexOf('(取消)') != -1)
 				{
 					appendObj.addClass("redBox");
 					if(!error) msgBox("error", "注意: 片單中有取消場次");
 					error = true;
 				}
 				$("#dropBox > #seledMovList").append(appendObj);
-				$("#varStor").append(data[i]['KEY'] + ",");
+				$("#varStor").append(data[i].KEY + ",");
 			}
 		}
 		updateSeledCount();
@@ -366,7 +367,7 @@ function removeMov(movId)
 			var movIdRemove = movId.split('-')[1];
 			var varStor = $("#varStor").text();
 			$("#varStor").text(varStor.replace(movIdRemove + ",", ""));
-			$("#" + movId).hide("drop", {}, "fast", function() {$("#" + movId).remove()});
+			$("#" + movId).hide("drop", {}, "fast", function() {$("#" + movId).remove();});
 			$("#seledMovList").height($("#seledMovList").height() - 80);
 			updateSeledCount();
 		},
@@ -378,16 +379,16 @@ function removeMov(movId)
 function updateSeledCount()
 {
 	var varStor = $("#varStor").text();
-	$("#dropBox > h1").html("我的片單 (" + $("#seledMovList > li").length + ") "
-				+ "<span id=\"listLink\">["
-				+ "<a href=\"javascript:share('link');\" title=\"與好友分享你的片單\">片單連結</a> "
-				+ "<a href=\"javascript:share('twitter');\" class=\"shareBtn\" title=\"twitter\">推</a> "
-				+ "<a href=\"javascript:share('plurk');\" class=\"shareBtn\" title=\"plurk\">噗</a> "
-				+ "<a href=\"javascript:share('facebook');\" class=\"shareBtn\" title=\"facebook\">臉</a> / "
-				+ "<a href=\"javascript:window.print();\" title=\"以條列式列印片單\">列印片單</a> / "
-				+ "<a href=\"cal.php?movs=" + varStor + "\" title=\"以月曆模式列印片單\">月曆列印</a>]</span>"
-	);
-	if($.browser.msie == true) $("#dropBox > h1").show();
+	$("#dropBox > h1").html("我的片單 (" + $("#seledMovList > li").length + ") " +
+				"<span id=\"listLink\">[" +
+				"<a href=\"javascript:share('link');\" title=\"與好友分享你的片單\">片單連結</a> " +
+				"<a href=\"javascript:share('twitter');\" class=\"shareBtn\" title=\"twitter\">推</a> " +
+				"<a href=\"javascript:share('plurk');\" class=\"shareBtn\" title=\"plurk\">噗</a> " +
+				"<a href=\"javascript:share('facebook');\" class=\"shareBtn\" title=\"facebook\">臉</a> / " +
+				"<a href=\"javascript:window.print();\" title=\"以條列式列印片單\">列印片單</a> / " +
+				"<a href=\"cal.php?movs=" + varStor + "\" title=\"以月曆模式列印片單\">月曆列印</a>]</span>"
+				);
+	if($.browser.msie === true) $("#dropBox > h1").show();
 	else $("#dropBox > h1").show("highlight", {}, "slow");
 }
 
@@ -408,7 +409,7 @@ function share(site)
 			"login": "cornguo",
 			"apiKey": "R_4976efdab985f8bddaa1c25495000f53"
 		},
-		"success": function(data) {sharePost(site, data["results"][link]["shortUrl"]);}
+		"success": function(data) {sharePost(site, data.results[link].shortUrl);}
 	});
 }
 
@@ -418,16 +419,16 @@ function sharePost(site, link)
 	switch(site)
 	{
 	case "plurk":
-		void(window.open('http://www.plurk.com/?qualifier=shares&status='
-			+ encodeURIComponent(link) + ' (' + encodeURIComponent(document.title + ' - 我的片單)')));
+		void(window.open('http://www.plurk.com/?qualifier=shares&status=' +
+			encodeURIComponent(link) + ' (' + encodeURIComponent(document.title + ' - 我的片單)')));
 	break;
 	case "twitter":
-		void(window.open('http://twitter.com/share?url=' + encodeURIComponent(link)
-			+ '&text=' + encodeURIComponent(document.title + ' - 我的片單'), "twitter", "width=800,height=420,dependent=yes"));
+		void(window.open('http://twitter.com/share?url=' + encodeURIComponent(link) +
+			'&text=' + encodeURIComponent(document.title + ' - 我的片單'), "twitter", "width=800,height=420,dependent=yes"));
 	break;
 	case "facebook":
-		void(window.open('http://www.facebook.com/sharer.php?u='
-			+ encodeURIComponent(link) + '&t=' + encodeURIComponent(document.title + ' - 我的片單'), "facebook", "width=800,height=420,dependent"));
+		void(window.open('http://www.facebook.com/sharer.php?u=' +
+			encodeURIComponent(link) + '&t=' + encodeURIComponent(document.title + ' - 我的片單'), "facebook", "width=800,height=420,dependent"));
 	break;
 	case "link":
 		msgBox('plain', "連結到這份片單的網址<br /><a id=\"shareLink\" href=\"" + link + "\">" + link + "</a>");
@@ -438,13 +439,13 @@ function sharePost(site, link)
 function getEndTime(startTime, endTime)
 {
 	if(endTime.split(" ")[2].split(":")[0] < startTime.split(" ")[2].split(":")[0])
-		return parseInt(endTime.split(" ")[2].split(":")[0])+24 + ":" + endTime.split(" ")[2].split(":")[1] + "*";
+		return parseInt(endTime.split(" ")[2].split(":")[0], 10)+24 + ":" + endTime.split(" ")[2].split(":")[1] + "*";
 	else return endTime.split(" ")[2];
 }
 
 function msgBox(msgType, msg, callback, callback2)
 {
-	var msgBox = $("<div />");
+	var msgbox = $("<div />");
 	var buttonParm = "";
 
 	switch(msgType)
@@ -453,6 +454,7 @@ function msgBox(msgType, msg, callback, callback2)
 		buttonParm = {
 			"確定": function() {$(this).dialog('close'); $(this).remove();}
 		};
+		break;
 	case "error":
 		buttonParm = {
 			"確定": function() {$(this).dialog('close'); $(this).remove();}
@@ -478,8 +480,8 @@ function msgBox(msgType, msg, callback, callback2)
 		};
 		break;
 	}
-	msgBox.html(msg);
-	msgBox.dialog({
+	msgbox.html(msg);
+	msgbox.dialog({
 		"autoOpen": false,
 		"bgiframe": true,
 		"modal": true,
@@ -493,18 +495,18 @@ function msgBox(msgType, msg, callback, callback2)
 		$(".ui-dialog").css({"background-color": "#FCC", "border-color": "#600"});
 		$(".ui-dialog-content").css({"background-color": "#FEE"});
 	}
-	msgBox.dialog("open");
+	msgbox.dialog("open");
 }
 
 function imdbWindow(movTitleObj)
 {
 	var eTitle = $(movTitleObj).children(".movETitle:first").text().split("+");
 	var link = $(movTitleObj).children(".movLink:first").text();
-	if(link != "") {
+	if(link !== "") {
 		void(window.open("http://www.wallagroup.com/movies/" + link + "/", "imdbWindow"));
 		return;
 	}
-	if(eTitle == "") return;
+	if(eTitle === "") return;
 	if(eTitle.length > 1)
 	{
 		var movOpt = "<ul id=\"movOpt\">";
@@ -547,14 +549,14 @@ function iProductForceApp()
 {
 //	return;
 	var movs = gup("movs");
-	if(movs != null && movs != "")
+	if(movs !== null && movs !== "")
 	{
 		window.location = "cal.php?movs=" + movs;
 		return;
 	}
 
 	if(navigator.userAgent.match(/Android/i)) return;
-	if(window.navigator.standalone != true) window.location = "..";
+	if(window.navigator.standalone !== true) window.location = "..";
 
 }
 
@@ -564,7 +566,7 @@ function gup(name)
 	var regexS = "[\\?&]"+name+"=([^&#]*)";
 	var regex = new RegExp( regexS );
 	var results = regex.exec( window.location.href );
-	if( results == null ) return null;
+	if( results === null ) return null;
 	else return results[1];
 }
 
@@ -579,7 +581,7 @@ function updateBreadcrumb(pos, text, id, dropdownId)
 		$("#breadcrumb > .btn-group:nth-child(" + pos + ")").nextAll().remove();
 		$("#breadcrumb").append("<div class=\"btn-group\" id=\""+ id + "\"><span class=\"btn\">" + text + "</span></div>");
 	}
-	if (dropdownId != null) {
+	if (dropdownId !== null) {
 		$("#breadcrumb").append("<div class=\"btn-group\" id=\"" + id + "-select\"><span class=\"btn btn-primary\">請選擇</span></div>");
 		$("#" + id + "-select").append("<span id=\"" + id + "-dropdown\" class=\"dropdown-toggle btn btn-primary\" data-toggle=\"dropdown\"><b class=\"caret\"></b></span>");
 		$("#" + id + "-select").append("<ul id=\"" + dropdownId + "\"class=\"dropdown-menu\" role=\"menu\" aria-labelledby=\"" + id + "-dropdown\" style=\"max-height:400px; overflow:auto;\"></ul>");
