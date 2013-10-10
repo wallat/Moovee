@@ -7,7 +7,8 @@ file_put_contents("collision.json", json_encode(pre_collision($data)));
 
 // CACHE fields
 // PLACE, DATE, CATEGORY, CTITLE, GRADE, REMARK, LINK
-$fields = array("PLACE", "DATE", "CATEGORY", "CTITLE", "GRADE", "REMARK", "LINK");
+// $fields = array("PLACE", "DATE", "CATEGORY", "CTITLE", "GRADE", "REMARK", "LINK");
+$fields = array("PLACE", "DATE", "CATEGORY", "CTITLE", "GRADE", "REMARK");
 
 foreach($fields as $field)
 {
