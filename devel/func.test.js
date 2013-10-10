@@ -162,12 +162,15 @@ function refreshTitleBox(objid, data)
 {
 	$("#titleBox").html("<li class=\"description disabled\">(括號後數字為節目手冊頁數)</li>");
 
-	for(i = 0, j = data.length; i < j; i++)
-	    $("#titleBox").append("<li><a id=\"mov-" + data[i]['KEY'] + "\" onclick=\"return false;\" href=\"#\">"
-			+ "<span class=\"movTitle plainText\">" + data[i]['CTITLE'] + "</span>"
-			+ "<span class=\"movETitle hidden\">" + data[i]['ETITLE'] + "</span>"
-			+ "<span class=\"movLink hidden\">" + data[i]['LINK'] + "</span>"
-			+ "<span class=\"movPageNo\">(" + data[i]['PAGE'] + ")</span></a></li>");
+	for(i = 0, j = data.length; i < j; i++) {
+		var t = $('#titleBox').append(
+			'<li><a id="mov-' + data[i]['KEY'] + '" onclick="return false;" href="#">' +
+					'<span class="movTitle plainText">' + data[i]['CTITLE'] + '</span>' +
+					'<span class="movETitle hidden">' + data[i]['ETITLE'] + '</span>');
+		if(data[i]['LINK']) {
+			t.append('<span class="movLink hidden">' + data[i]['LINK'] + '</span>');
+		}
+		t.append('<span class="movPageNo">(' + data[i]['PAGE'] + ')</span></a></li>');
 /*
 	$("#titleBox > li").on("mouseover", function() {
 		$(this).children("span.movTitle").toggleClass("hidden");
@@ -179,6 +182,7 @@ function refreshTitleBox(objid, data)
 		$(this).children("span.movETitle").toggleClass("hidden");
 	});
 */
+	}
 
 	$("#titleBox > li > a").on("dblclick", function() {
 		imdbWindow(this);
@@ -248,7 +252,12 @@ function refreshDragBox(data)
 		if(isIProduct() != "iPad") showETitle = false;
 	}
 
-	$("#dragBox").html("<div id=\"infoBox\"><img id=\"imdbBtn\" src=\"../icon/walla.png\" alt=\"Lookup this movie in Wallagroup\" onclick=\"imdbWindow($(this).parent());\" /></div>");
+	if(data[0]['LINK']) {
+		$("#dragBox").html("<div id=\"infoBox\"><img id=\"imdbBtn\" src=\"../icon/walla.png\" alt=\"Lookup this movie in Wallagroup\" onclick=\"imdbWindow($(this).parent());\" /></div>");
+	} else {
+		$("#dragBox").html("<div id=\"infoBox\"><img id=\"imdbBtn\" src=\"../icon/IMDb.png\" alt=\"Lookup this movie in IMDb\" onclick=\"imdbWindow($(this).parent());\" /></div>");
+	}
+
 	$("#dragBox > #infoBox").append("<h1 class=\"movTitle\">" + data[0]['CTITLE'] + "</h1>");
 
 	if(data[0]['GRADE']) $("#infoBox > h1").append(" (" + data[0]['GRADE'] + ")");
@@ -256,7 +265,9 @@ function refreshDragBox(data)
 	if(showETitle) $("#infoBox").append("<h2 class=\"movETitle\">" + data[0]['ETITLE'] + "</h2>");
 	else $("#infoBox").append("<h2 class=\"movETitle hidden\">" + data[0]['ETITLE'] + "</h2>");
 
-	$("#infoBox").append("<span class=\"movLink hidden\">" + data[0]['LINK'] + "</span>");
+	if(data[0]['LINK']) {
+		$("#infoBox").append("<span class=\"movLink hidden\">" + data[0]['LINK'] + "</span>");
+	}
 	$("#infoBox").append("<div class=\"description\">" + desc + "</div>");
 	$("#dragBox").append("<ul id=\"movList\"></ul>");
 
@@ -323,14 +334,17 @@ function refreshDropBox(data)
 			if(data[i] != null)
 			{
 				var endTime = getEndTime(data[i]['START'], data[i]['END']);
-				var appendObj = $("<li id=\"smov-" + data[i]['KEY'] + "\" class=\"seledMovObj\" onclick=\"removeMov(this.id);\">"
-						+ "<span class=\"movTime\">" + data[i]['START'] + " -- " + endTime + "</span>"
-						+ "<span class=\"movPlace\">" + data[i]['PLACE'] + "</span>"
-						+ "<span class=\"movTitle\">" + data[i]['CTITLE'] + "</span>"
-						+ "<span class=\"movETitle hidden\">" + data[i]['ETITLE'] + "</span>"
-						+ "<span class=\"movLink hidden\">" + data[i]['LINK'] + "</span>"
-						+ "<span class=\"movRemark\">" + data[i]['REMARK'] + "</span>"
-						+ "<span class=\"movPageNo\">(" + data[i]['PAGE'] + ")</span></li>");
+				var h = "<li id=\"smov-" + data[i]['KEY'] + "\" class=\"seledMovObj\" onclick=\"removeMov(this.id);\">" +
+						"<span class=\"movTime\">" + data[i]['START'] + " -- " + endTime + "</span>" +
+						"<span class=\"movPlace\">" + data[i]['PLACE'] + "</span>" +
+						"<span class=\"movTitle\">" + data[i]['CTITLE'] + "</span>" +
+						"<span class=\"movETitle hidden\">" + data[i]['ETITLE'] + "</span>";
+				if(data[i]['LINK']) {
+					h += "<span class=\"movLink hidden\">" + data[i]['LINK'] + "</span>"
+				}
+				h += "<span class=\"movRemark\">" + data[i]['REMARK'] + "</span>" +
+						"<span class=\"movPageNo\">(" + data[i]['PAGE'] + ")</span></li>"
+				var appendObj = $(h);
 				if(data[i]['CTITLE'].indexOf('(取消)') != -1)
 				{
 					appendObj.addClass("redBox");
@@ -454,7 +468,7 @@ function msgBox(msgType, msg, callback, callback2)
 		buttonParm = {
 			"確定": function() {$(this).dialog('close'); $(this).remove(); callback();},
 			"取消": function() {$(this).dialog('close'); $(this).remove();},
-			"Walla!": function() {$(this).dialog('close'); $(this).remove(); callback2();}
+			"連結": function() {$(this).dialog('close'); $(this).remove(); callback2();}
 		};
 		break;
 	case "collision":
