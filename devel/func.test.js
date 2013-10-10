@@ -381,10 +381,7 @@ function updateSeledCount()
 	var varStor = $("#varStor").text();
 	$("#dropBox > h1").html("我的片單 (" + $("#seledMovList > li").length + ") " +
 				"<span id=\"listLink\">[" +
-				"<a href=\"javascript:share('link');\" title=\"與好友分享你的片單\">片單連結</a> " +
-				"<a href=\"javascript:share('twitter');\" class=\"shareBtn\" title=\"twitter\">推</a> " +
-				"<a href=\"javascript:share('plurk');\" class=\"shareBtn\" title=\"plurk\">噗</a> " +
-				"<a href=\"javascript:share('facebook');\" class=\"shareBtn\" title=\"facebook\">臉</a> / " +
+				"<a href=\"javascript:share('link');\" title=\"與好友分享你的片單\">片單連結</a> / " +
 				"<a href=\"javascript:window.print();\" title=\"以條列式列印片單\">列印片單</a> / " +
 				"<a href=\"cal.php?movs=" + varStor + "\" title=\"以月曆模式列印片單\">月曆列印</a>]</span>"
 				);
