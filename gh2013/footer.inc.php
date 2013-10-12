@@ -7,3 +7,7 @@
         (<?php echo "# {$counter}"; ?>)
     </div>
 </div>
+
+<script src="../json2.js"></script>
+<script src="../GoogleCalExporter.js"></script>
+<script src="https://apis.google.com/js/client.js?onload=googleClientHasLoaded"></script>

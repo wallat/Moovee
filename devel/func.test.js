@@ -31,6 +31,38 @@ function render()
 	$(window).on("resize", function() {resizeDiv();});
 
 	if(jQuery.browser.msie === true) $("div.fb_like:first").empty().html("<iframe src=\"http://www.facebook.com/plugins/like.php?href=http%3A%2F%2Fcornguo.atcity.org%2Ftest%2Fmoovee%2F&amp;layout=button_count&amp;show_faces=true&amp;width=100&amp;action=like&amp;colorscheme=light&amp;height=21\" style=\"border:none; overflow:hidden; width:100px; height:21px;\" frameborder=\"0\" scrolling=\"no\" allowTransparency=\"true\" />");
+
+	// bind action for exporting to google calendar button
+	$('body').on('click', '#export2gcal', function() {
+		var gCalExporter = new GoogleCalExporter({});
+
+		gCalExporter.registProgressObserver(function(msg) {
+			$('#gCalExporter-progress').text(msg);
+		});
+
+		gCalExporter.on('done', function() {
+			$('#gCalExporter-progress').html('匯出完成。請至 <a href="http://bit.ly/17lGCi0" target="_blank">Google Calendar</a> 查看<a href="http://bit.ly/17lGCi0" target="_blank">『'+gCalExporter.settings.calName+'』</a>行事曆。');
+		});
+
+		// retrieve detail data
+		$.ajax({
+			type: 'POST',
+			url: 'getData.php',
+			data: {
+				'movDetails': 1,
+				'varStor': $('#varStor').text()
+			},
+			dataType: 'json',
+			success: function(response) {
+				if (response && response.length>0) {
+					msgBox('plain', '<div id="gCalExporter-progress">準備匯入中</div>');
+					gCalExporter.exportMovies(response);
+				} else {
+					msgBox('error', '請先加入一些電影到片單中');
+				}
+			}
+		});
+	});
 }
 
 function resizeDiv()
@@ -378,13 +410,23 @@ function removeMov(movId)
 
 function updateSeledCount()
 {
-	var varStor = $("#varStor").text();
-	$("#dropBox > h1").html("我的片單 (" + $("#seledMovList > li").length + ") " +
-				"<span id=\"listLink\">[" +
-				"<a href=\"javascript:share('link');\" title=\"與好友分享你的片單\">片單連結</a> / " +
-				"<a href=\"javascript:window.print();\" title=\"以條列式列印片單\">列印片單</a> / " +
-				"<a href=\"cal.php?movs=" + varStor + "\" title=\"以月曆模式列印片單\">月曆列印</a>]</span>"
-				);
+	var varStor = $("#varStor").text(),
+		html;
+
+	html = "我的片單 (" + $("#seledMovList > li").length + ") " +
+		"<span id=\"listLink\">[" +
+		"<a href=\"javascript:share('link');\" title=\"與好友分享你的片單\">片單連結</a> / " +
+		"<a href=\"javascript:window.print();\" title=\"以條列式列印片單\">列印片單</a> / " +
+		"<a href=\"cal.php?movs=" + varStor + "\" title=\"以月曆模式列印片單\">月曆列印</a>";
+
+	if (GoogleCalExporter) {
+		html += ' / <a id="export2gcal" href="#" title="匯出至 Google Calendar">匯出至 Google Calendar</a>';
+	};
+
+	html +=	"]</span>";
+
+	$("#dropBox > h1").html(html);
+
 	if($.browser.msie === true) $("#dropBox > h1").show();
 	else $("#dropBox > h1").show("highlight", {}, "slow");
 }

@@ -62,7 +62,7 @@ if(isset($_POST['movIdAdd']))
 	if(isset($_POST['varStor']))
 	{
 		$movIdList = explode(",", trim(strip_tags(urldecode($_POST['varStor'])), ','));
-		$movIdList = preg_replace("/[^0-9,]/", '', $movIdList);		
+		$movIdList = preg_replace("/[^0-9,]/", '', $movIdList);
 	}
 
 	if($movIdAdd == 'none')
@@ -92,6 +92,27 @@ if(isset($_POST['movIdAdd']))
 		echo "refreshDropBox(" . json_encode($msg) . ");";
 		break;
 	}
+}
+
+if (isset($_POST['movDetails']))
+{
+	$cacheArr = array();
+
+	$movIdList = '';
+	if(isset($_POST['varStor']))
+	{
+		$movIdList = explode(",", trim(strip_tags(urldecode($_POST['varStor'])), ','));
+		$movIdList = preg_replace("/[^0-9,]/", '', $movIdList);
+	}
+
+	foreach($movIdList as $movKey)
+	{
+		$cacheArr[] = $k->getMovieByKey($movKey);
+	}
+
+	$cacheArr = array_filter($cacheArr);
+	usort($cacheArr, "compareTime");
+	echo json_encode($cacheArr);
 }
 
 ?>

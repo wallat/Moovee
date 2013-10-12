@@ -9,7 +9,7 @@
 <meta name="keywords" content="<?php echo $keywords;?>" />
 <?php include("../includes/header.test.inc.php"); ?>
 </head>
-<body onload="render();">
+<body>
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
         <div class="container-fluid">
@@ -48,5 +48,10 @@
 </div>
 <div id="varStor" class="hidden"><?php if(strlen($movs) > 0) echo $movs;?></div>
 <div id="filter" class="hidden"></div>
+<script>
+    $(function() {
+        render();
+    });
+</script>
 </body>
 </html>
